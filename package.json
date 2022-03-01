@@ -1,0 +1,27 @@
+{
+  "name": "user-proj-managing",
+  "version": "0.1.0",
+  "description": "AI Play 프로젝트 진행 중 새롭게 Repo 생성할 경우 사용할 템플릿입니다.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seahahn/User-Proj-Managing.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/seahahn/User-Proj-Managing/issues"
+  },
+  "homepage": "https://github.com/seahahn/User-Proj-Managing#readme",
+  "dependencies": {
+    "fastify": "^3.27.2",
+    "fastify-mongodb": "^4.1.1",
+    "fastify-plugin": "^3.0.1",
+    "fastify-swagger": "^4.15.0"
+  }
+}
