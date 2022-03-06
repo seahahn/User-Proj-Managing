@@ -1,6 +1,6 @@
 async function saveProject(req, rep) {
     const collection = this.mongo.db.collection("ml_proj_structure");
-    console.log(req.body);
+    // console.log(req);
     const { user_idx, proj_idx, layout } = req.body;
     const result = await collection.insertOne({
         user_idx: user_idx,
@@ -12,7 +12,7 @@ async function saveProject(req, rep) {
 
 // 프로젝트 불러오기
 async function loadProject(req, rep) {
-    console.log(req.params);
+    // console.log(req.params);
     const collection = this.mongo.db.collection("ml_proj_structure");
     const result = await collection.findOne({
         user_idx: req.params.user_idx,
@@ -35,8 +35,8 @@ async function loadProjects(req, rep) {
 }
 
 async function updateProject(req, rep) {
-    console.log(req.params);
-    console.log(req.body.layout);
+    // console.log(req.params);
+    // console.log(req.body.layout);
     const collection = this.mongo.db.collection("ml_proj_structure");
     const result = await collection.updateOne(
         {
@@ -53,7 +53,7 @@ async function updateProject(req, rep) {
 }
 
 async function deleteProject(req, rep) {
-    console.log(req.params);
+    // console.log(req.params);
     const collection = this.mongo.db.collection("ml_proj_structure");
     const result = await collection.deleteOne({
         user_idx: req.params.user_idx,

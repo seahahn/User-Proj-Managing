@@ -1,15 +1,14 @@
-import { envSetting, dbConnector, swaggerSetting } from "./appSettings.js";
+import { envSetting, dbConnector, corsSetting, swaggerSetting } from "./appSettings.js";
+import fastifySensible from "fastify-sensible";
 import routes from "./routes/routes.js";
 
 const app = async (fastify, options) => {
     fastify.register(envSetting);
-    // console.log("envSetting");
     fastify.register(dbConnector);
-    // console.log("dbConnector");
+    fastify.register(corsSetting);
+    fastify.register(fastifySensible);
     fastify.register(swaggerSetting);
-    // console.log("swagger");
     fastify.register(routes);
-    // console.log("routes");
 };
 
 export default app;

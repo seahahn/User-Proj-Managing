@@ -5,6 +5,7 @@ AI Play 사용자의 머신 러닝 프로젝트 관리 기능을 위한 서버
 ## Stack
 
 -   Fastify(Node.js)
+-   MongoDB
 
 ## 준비 사항
 
@@ -16,5 +17,5 @@ npm i
 ## 개발 서버 실행
 
 ```
-npm start
+npm run dev
 ```

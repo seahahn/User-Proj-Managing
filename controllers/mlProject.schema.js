@@ -9,6 +9,13 @@ const loadProjectSchema = {
         params: mlProjectOwnerModel,
         response: {
             200: mlProjectModel,
+            default: {
+                description: "Unexpected error",
+                type: "object",
+                properties: {
+                    error: { type: "string" },
+                },
+            },
         },
     },
     handler: loadProject,
