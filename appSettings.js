@@ -9,8 +9,6 @@ import swagger from "fastify-swagger";
 const mongodbConnector = fastifyPlugin(async (fastify, options) => {
   fastify.register(fastifyMongo, {
     url: fastify.config.MONGO_URL,
-    // useNewUrlParser: true,
-    // useUnifiedTopology: true,
   });
 });
 
@@ -36,7 +34,6 @@ const envSetting = fastifyPlugin(async (fastify, options) => {
     })
     .ready((err) => {
       if (err) console.error(err);
-      // console.log(fastify.config);
     });
 });
 
@@ -97,6 +94,4 @@ const swaggerSetting = fastifyPlugin(async (fastify, options) => {
   });
 });
 
-// Wrapping a plugin function with fastify-plugin exposes the decorators
-// and hooks, declared inside the plugin to the parent scope.
 export { mongodbConnector, postgresConnector, envSetting, swaggerSetting, corsSetting };

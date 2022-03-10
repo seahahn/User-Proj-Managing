@@ -1,9 +1,10 @@
 // 1개 프로젝트 스키마
 const mlProjectModel = {
   type: "object",
-  required: ["user_idx", "proj_idx", "proj_name", "layout"],
+  required: ["user_idx"],
   additionalProperties: false,
   properties: {
+    idx: { type: "number" }, // proj_idx의 SQL DB 컬럼명은 idx
     user_idx: { type: "number" },
     proj_idx: { type: "number" },
     proj_name: { type: "string" },
@@ -20,7 +21,7 @@ const mlProjectsModel = {
 // 프로젝트 사용자 정보 스키마
 const mlProjectOwnerModel = {
   type: "object",
-  required: ["user_idx", "proj_idx"],
+  required: ["user_idx"],
   additionalProperties: false,
   properties: {
     user_idx: { type: "number" },
@@ -38,4 +39,14 @@ const mlProjectLayoutModel = {
   },
 };
 
-export { mlProjectModel, mlProjectsModel, mlProjectOwnerModel, mlProjectLayoutModel };
+// 프로젝트명 스키마
+const mlProjectNameModel = {
+  type: "object",
+  required: ["proj_name"],
+  additionalProperties: false,
+  properties: {
+    proj_name: { type: "string" },
+  },
+};
+
+export { mlProjectModel, mlProjectsModel, mlProjectOwnerModel, mlProjectLayoutModel, mlProjectNameModel };
