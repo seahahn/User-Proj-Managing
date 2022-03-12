@@ -1,0 +1,49 @@
+import AWS from "aws-sdk";
+
+const S3 = new AWS.S3({ accessKeyId: "AKIA4BZQCGRCQ3MMXBFP", secretAccessKey: "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" });
+const BUCKET_NAME = "aiplay-test-bucket";
+export const KEY_PREFIX = "model/";
+
+export const getModelListInS3 = async (userIdx) => {
+  const params = {
+    Bucket: BUCKET_NAME,
+    Prefix: KEY_PREFIX + userIdx,
+  };
+  const data = await S3.listObjects(params).promise();
+  // console.log(data);
+  return data.Contents;
+};
+
+export const copyModelInS3 = async (userIdx, oldModelName, newModelName) => {
+  const params = {
+    Bucket: BUCKET_NAME,
+    CopySource: `${BUCKET_NAME}/${KEY_PREFIX}${userIdx}/${oldModelName}`,
+    Key: KEY_PREFIX + userIdx + "/" + newModelName,
+  };
+  const data = await S3.copyObject(params).promise();
+  // console.log(data);
+  return data;
+};
+
+export const deleteModelInS3 = async (userIdx, modelName) => {
+  const params = {
+    Bucket: BUCKET_NAME,
+    Key: KEY_PREFIX + userIdx + "/" + modelName,
+  };
+  const data = await S3.deleteObject(params).promise();
+  // console.log(data);
+  return data;
+};
+
+// DB 데이터와 S3 객체의 size를 합친 사용자 ML 모델 목록을 반환
+export const organizedModelList = (userIdx, array, contents) => {
+  return array
+    .map((row) => {
+      const s3Content = contents.find((content) => content.Key === `${KEY_PREFIX}${userIdx}/${row.model_name}`);
+      return {
+        ...row,
+        size: s3Content ? s3Content.Size : 0,
+      };
+    })
+    .sort((a, b) => (a.model_name.toLowerCase() < b.model_name.toLowerCase() ? -1 : 1));
+};
