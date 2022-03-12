@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
 
-const S3 = new AWS.S3({ accessKeyId: "AKIA4BZQCGRCQ3MMXBFP", secretAccessKey: "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" });
+const S3 = new AWS.S3({ accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY });
 const BUCKET_NAME = "aiplay-test-bucket";
 export const KEY_PREFIX = "model/";
 
