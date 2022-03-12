@@ -29,6 +29,8 @@ const envSetting = fastifyPlugin(async (fastify, options) => {
           NODE_ENV: { type: "string" },
           MONGO_URL: { type: "string" },
           POSTGRES_URL: { type: "string" },
+          AWS_ACCESS_KEY_ID: { type: "string" },
+          AWS_SECRET_ACCESS_KEY: { type: "string" },
         },
       },
     })
