@@ -3,6 +3,7 @@ import AWS from "aws-sdk";
 const S3 = new AWS.S3({ accessKeyId: process.env.AWS_ACCESS_KEY_ID, secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY });
 const BUCKET_NAME = "aiplay-test-bucket";
 export const KEY_PREFIX = "model/";
+export const S3_OBJECT_URL = `https://${BUCKET_NAME}.s3.ap-northeast-2.amazonaws.com/${KEY_PREFIX}`;
 
 export const getModelListInS3 = async (userIdx) => {
   const params = {
