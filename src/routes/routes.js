@@ -10,6 +10,7 @@ import {
     deleteModel,
     updateModelName,
     getModelList,
+    downloadModel,
 } from "../schemas/index.js";
 
 const routes = async (fastify, options) => {
@@ -31,6 +32,7 @@ const routes = async (fastify, options) => {
     fastify.get("/model/list/:user_idx", getModelList); // 사용자 모델 목록 불러오기
     fastify.put("/model/name/:user_idx/:model_idx", updateModelName); // 모델명 변경
     fastify.delete("/model/:user_idx/:model_idx", deleteModel); // 모델 데이터 삭제
+    fastify.get("/model/download/:user_idx/:model_idx", downloadModel); // 모델 데이터 삭제
 
     // Admin Functions
     fastify.get("/project", loadProjects); // 모든 프로젝트 데이터(NoSQL) 불러오기
