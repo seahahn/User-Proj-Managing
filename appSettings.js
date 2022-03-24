@@ -4,6 +4,8 @@ import fastifyMongo from "fastify-mongodb";
 import fastifyPostgres from "fastify-postgres";
 import fastifyENV from "fastify-env";
 import fastifyCORS from "fastify-cors";
+import fastifyJWT from "fastify-jwt";
+import fastifyCookie from "fastify-cookie";
 import swagger from "fastify-swagger";
 
 const mongodbConnector = fastifyPlugin(async (fastify, options) => {
@@ -31,6 +33,8 @@ const envSetting = fastifyPlugin(async (fastify, options) => {
                     POSTGRES_URL: { type: "string" },
                     AWS_ACCESS_KEY_ID: { type: "string" },
                     AWS_SECRET_ACCESS_KEY: { type: "string" },
+                    SECRET_KEY: { type: "string" },
+                    ADMIN_MEMBERSHIP_CODE: { type: "string" },
                 },
             },
         })
@@ -45,6 +49,38 @@ const corsSetting = fastifyPlugin(async (fastify, options) => {
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
         allowedHeaders: ["Content-Type", "Authorization", "User-Id", "X-CSRFToken", "csrftoken"],
         credentials: true,
+    });
+});
+
+const cookieSetting = fastifyPlugin(async (fastify, options) => {
+    fastify.register(fastifyCookie);
+});
+
+const jwtSetting = fastifyPlugin(async (fastify, options) => {
+    fastify.register(fastifyJWT, {
+        secret: fastify.config.SECRET_KEY,
+        cookie: {
+            cookieName: "access_token",
+        },
+    });
+
+    fastify.decorate("authenticate", async function (request, reply) {
+        try {
+            const payload = await this.jwt.verify(request.cookies.access_token);
+        } catch (err) {
+            reply.send(err);
+        }
+    });
+
+    fastify.decorate("adminAuthenticate", async function (request, reply) {
+        try {
+            const payload = await this.jwt.verify(request.cookies.access_token);
+            if (payload.membership !== this.config.ADMIN_MEMBERSHIP_CODE) {
+                reply.send({ status_code: 401, detail: "Unauthorized" });
+            }
+        } catch (err) {
+            reply.send(err);
+        }
     });
 });
 
@@ -95,4 +131,4 @@ const swaggerSetting = fastifyPlugin(async (fastify, options) => {
     });
 });
 
-export { mongodbConnector, postgresConnector, envSetting, swaggerSetting, corsSetting };
+export { mongodbConnector, postgresConnector, envSetting, swaggerSetting, corsSetting, cookieSetting, jwtSetting };
