@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { loadProjects, deleteAllProjects } from "../schemas/adminFunc.schema.js";
 import {
     saveProject,
@@ -20,23 +21,23 @@ const routes = async (fastify, options) => {
     });
 
     // 프로젝트 관리 기능
-    fastify.post("/project", saveProject); // 새 프로젝트 생성
-    fastify.get("/project/:user_idx/:proj_idx", loadProject); // 프로젝트 구조 불러오기
-    fastify.put("/project/:user_idx/:proj_idx", updateProject); // 프로젝트 구조 업데이트
-    fastify.delete("/project/:user_idx/:proj_idx", deleteProject); // 프로젝트 데이터 삭제
-    fastify.put("/project/name/:user_idx/:proj_idx", updateProjName); // 프로젝트명 변경
-    fastify.get("/project/list/:user_idx", getProjList); // 사용자 프로젝트 목록 불러오기
+    fastify.post("/project", _.assign(saveProject, { onRequest: fastify.authenticate })); // 새 프로젝트 생성
+    fastify.get("/project/:user_idx/:proj_idx", _.assign(loadProject, { onRequest: fastify.authenticate })); // 프로젝트 구조 불러오기
+    fastify.put("/project/:user_idx/:proj_idx", _.assign(updateProject, { onRequest: fastify.authenticate })); // 프로젝트 구조 업데이트
+    fastify.delete("/project/:user_idx/:proj_idx", _.assign(deleteProject, { onRequest: fastify.authenticate })); // 프로젝트 데이터 삭제
+    fastify.put("/project/name/:user_idx/:proj_idx", _.assign(updateProjName, { onRequest: fastify.authenticate })); // 프로젝트명 변경
+    fastify.get("/project/list/:user_idx", _.assign(getProjList, { onRequest: fastify.authenticate })); // 사용자 프로젝트 목록 불러오기
 
     // 모델 관리 기능
-    fastify.post("/model", saveModel); // 모델 생성
-    fastify.get("/model/list/:user_idx", getModelList); // 사용자 모델 목록 불러오기
-    fastify.put("/model/name/:user_idx/:model_idx", updateModelName); // 모델명 변경
-    fastify.delete("/model/:user_idx/:model_idx", deleteModel); // 모델 데이터 삭제
-    fastify.get("/model/download/:user_idx/:model_idx", downloadModel); // 모델 데이터 삭제
+    fastify.post("/model", _.assign(saveModel, { onRequest: fastify.authenticate })); // 모델 생성
+    fastify.get("/model/list/:user_idx", _.assign(getModelList, { onRequest: fastify.authenticate })); // 사용자 모델 목록 불러오기
+    fastify.put("/model/name/:user_idx/:model_idx", _.assign(updateModelName, { onRequest: fastify.authenticate })); // 모델명 변경
+    fastify.delete("/model/:user_idx/:model_idx", _.assign(deleteModel, { onRequest: fastify.authenticate })); // 모델 데이터 삭제
+    fastify.get("/model/download/:user_idx/:model_idx", _.assign(downloadModel, { onRequest: fastify.authenticate })); // 모델 데이터 삭제
 
     // Admin Functions
-    fastify.get("/project", loadProjects); // 모든 프로젝트 데이터(NoSQL) 불러오기
-    fastify.delete("/project", deleteAllProjects); // 모든 프로젝트 데이터(NoSQL) 삭제
+    fastify.get("/project", _.assign(loadProjects, { onRequest: fastify.adminAuthenticate })); // 모든 프로젝트 데이터(NoSQL) 불러오기
+    fastify.delete("/project", _.assign(deleteAllProjects, { onRequest: fastify.adminAuthenticate })); // 모든 프로젝트 데이터(NoSQL) 삭제
 
     // PostgreSQL 연결 테스트 코드
     fastify.get("/project/postgre", (req, rep) => {
