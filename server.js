@@ -8,14 +8,21 @@ dotenv.config();
 import Fastify from "fastify";
 
 // Instantiate Fastify with some config
-const app = Fastify({
+const fastify = Fastify({
   logger: true,
 });
 
 // Register your application as a normal plugin.
-app.register(import("./app"));
+import app from "./app.js";
+fastify.register(app);
 
 export default async (req, res) => {
-  await app.ready();
-  app.server.emit("request", req, res);
+  await fastify.ready();
+  fastify.server.emit("request", req, res);
 };
+// app.listen(process.env.PORT || 3000, (err) => {
+//   if (err) {
+//     app.log.error(err);
+//     process.exit(1);
+//   }
+// });
