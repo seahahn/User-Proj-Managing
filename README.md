@@ -4,14 +4,14 @@ AI Play 사용자의 머신 러닝 프로젝트 관리 기능을 위한 서버
 
 ## Stack
 
--   Fastify(Node.js)
--   MongoDB
--   PostgreSQL
+- Fastify(Node.js)
+- MongoDB
+- PostgreSQL
 
 ## 준비 사항
 
--   npm
--   docker(mongodb image, postgres image)
+- npm
+- docker(mongodb image, postgres image)
 
 ```
 // package.json에 있는 것들 설치
@@ -49,3 +49,8 @@ docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=aiplay -d postgres
 ```
 npm run dev
 ```
+
+## 배포 플랫폼 및 서버 주소
+
+- 플랫폼 : Vercel
+- 주소 : https://user-proj-managing.vercel.app/
