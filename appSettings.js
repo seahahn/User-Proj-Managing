@@ -47,7 +47,7 @@ const corsSetting = fastifyPlugin(async (fastify, options) => {
   fastify.register(fastifyCORS, {
     origin: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "User-Id", "X-CSRFToken", "csrftoken"],
+    allowedHeaders: ["Content-Type", "Authorization", "User-Id", "X-CSRFToken", "csrftoken", "token"],
     credentials: true,
   });
 });
@@ -59,14 +59,14 @@ const cookieSetting = fastifyPlugin(async (fastify, options) => {
 const jwtSetting = fastifyPlugin(async (fastify, options) => {
   fastify.register(fastifyJWT, {
     secret: fastify.config.SECRET_KEY,
-    cookie: {
-      cookieName: "access_token",
-    },
+    // cookie: {
+    //   cookieName: "access_token",
+    // },
   });
 
   fastify.decorate("authenticate", async function (request, reply) {
     try {
-      const payload = await this.jwt.verify(request.cookies.access_token);
+      const payload = await this.jwt.verify(request.headers.token);
     } catch (err) {
       reply.send(err);
     }
@@ -74,7 +74,7 @@ const jwtSetting = fastifyPlugin(async (fastify, options) => {
 
   fastify.decorate("adminAuthenticate", async function (request, reply) {
     try {
-      const payload = await this.jwt.verify(request.cookies.access_token);
+      const payload = await this.jwt.verify(request.headers.token);
       if (payload.membership !== this.config.ADMIN_MEMBERSHIP_CODE) {
         reply.send({ status_code: 401, detail: "Unauthorized" });
       }

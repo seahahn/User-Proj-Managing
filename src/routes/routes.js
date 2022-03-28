@@ -34,7 +34,7 @@ const routes = async (fastify, options) => {
   fastify.get("/model/list/:user_idx", _.assign(getModelList, { onRequest: fastify.authenticate })); // 사용자 모델 목록 불러오기
   fastify.put("/model/name/:user_idx/:model_idx", _.assign(updateModelName, { onRequest: fastify.authenticate })); // 모델명 변경
   fastify.delete("/model/:user_idx/:model_idx", _.assign(deleteModel, { onRequest: fastify.authenticate })); // 모델 데이터 삭제
-  fastify.get("/model/download/:user_idx/:model_idx", _.assign(downloadModel, { onRequest: fastify.authenticate })); // 모델 데이터 삭제
+  fastify.get("/model/download/:user_idx/:model_idx", _.assign(downloadModel, { onRequest: fastify.authenticate })); // 모델 데이터 다운로드
 
   // 사용자 탈퇴 시 작동할 기능
   fastify.delete("/project/:user_idx/all", _.assign(deleteUserData, { onRequest: fastify.authenticate })); // 탈퇴 시 해당 사용자의 모든 프로젝트 데이터 삭제
