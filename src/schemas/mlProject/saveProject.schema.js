@@ -43,25 +43,19 @@ const saveProject = {
           throw new Error("SQL error : Project creation failed");
         }
         const idx = sqlResult.rows[0].idx;
-        // console.log(idx);
-        // throw new Error("Test error : commit test");
 
         // NoSQL DB에 데이터 추가
         const collection = this.mongo.db.collection("ml_proj_structure");
-        // console.log("collection");
         const nosqlResult = await collection.insertOne({
           user_idx: user_idx,
           proj_idx: idx,
           proj_name: proj_name,
           layout: layout,
         });
-        // console.log(nosqlResult);
-        // return nosqlResult.acknowledged ? idx : new Error("NoSQL error : Project creation failed");
+
         if (nosqlResult.acknowledged) {
           // NoSQL 데이터 추가 성공 시 SQL DB의 데이터 추가 확정
           commit(err, sqlResult);
-          // console.log("commited");
-          // console.log(idx);
           rep.send(idx);
         } else {
           rep.send(new Error("NoSQL error : Project creation failed"));
