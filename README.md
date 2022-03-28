@@ -53,4 +53,4 @@ npm run dev
 ## 배포 플랫폼 및 서버 주소
 
 - 플랫폼 : Vercel
-- 주소 : https://user-proj-managing.vercel.app
+- 주소 : https://user-proj-managing.vercel.app/
