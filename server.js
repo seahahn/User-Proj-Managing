@@ -20,9 +20,3 @@ export default async (req, res) => {
   await fastify.ready();
   fastify.server.emit("request", req, res);
 };
-// app.listen(process.env.PORT || 3000, (err) => {
-//   if (err) {
-//     app.log.error(err);
-//     process.exit(1);
-//   }
-// });

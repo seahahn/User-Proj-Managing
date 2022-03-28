@@ -96,8 +96,6 @@ const swaggerSetting = fastifyPlugin(async (fastify, options) => {
       },
       host: "localhost:" + fastify.config.PORT,
       schemes: ["http", "https", "ws", "wss"],
-      // consumes: ["application/json"],
-      // produces: ["application/json"],
       tags: [
         { name: "project", description: "Project management related end-points" },
         { name: "save", description: "Project saving related end-points" },
