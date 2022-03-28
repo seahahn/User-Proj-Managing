@@ -47,7 +47,7 @@ const corsSetting = fastifyPlugin(async (fastify, options) => {
   fastify.register(fastifyCORS, {
     origin: true,
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization", "User-Id", "X-CSRFToken", "csrftoken"],
+    allowedHeaders: ["Content-Type", "Authorization", "User-Id", "X-CSRFToken", "csrftoken", "token"],
     credentials: true,
   });
 });
