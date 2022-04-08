@@ -44,8 +44,16 @@ AI Play 사용자의 머신 러닝 프로젝트 관리 기능을 위한 서버
 
 <br/>
 
+## :four: 트러블 슈팅 기록
+
+- https://github.com/AI-Play/User-Proj-Managing/discussions
+
+<br/>
+
+## :five: 개발 환경 준비 사항
+
 <details>
-  <summary><b>개발 환경 준비 사항</b></summary>
+  <summary><b>준비 사항</b></summary>
 
 - npm
 - docker(mongodb image, postgres image)
