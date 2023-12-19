@@ -1,14 +1,59 @@
-# AI-Play User Project Managing
+# ❇️ AI Play User Project Managing
 
 AI Play 사용자의 머신 러닝 프로젝트 관리 기능을 위한 서버
 
-## Stack
+## 1️⃣ Stack
 
-- Fastify(Node.js)
-- MongoDB
-- PostgreSQL
+- Fastify(Node.js) 3.27.2
+- MongoDB(MongoDB Atlas) 5.0.6
+- PostgreSQL(ElephantSQL)
+- AWS S3
+- JWT
+- Swagger
 
-## 준비 사항
+<br/>
+
+## 2️⃣ 배포 플랫폼 및 서버 주소
+
+- 플랫폼 : Vercel
+- 주소 : https://user-proj-managing.vercel.app/
+
+<br/>
+
+## :three: API 명세
+
+- DOCS(Swagger) : https://user-proj-managing.vercel.app/docs
+
+| Method             | URL                                  | Description                               |
+| ------------------ | ------------------------------------ | ----------------------------------------- |
+| 프로젝트 관리 기능 |                                      |                                           |
+| POST               | /project                             | 프로젝트 데이터 저장                      |
+| GET                | /project/:user_idx/:proj_idx         | 프로젝트 구조 불러오기                    |
+| PUT                | /project/:user_idx/:proj_idx         | 프로젝트 구조 업데이트                    |
+| DELETE             | /project/:user_idx/:proj_idx         | 프로젝트 데이터 삭제                      |
+| PUT                | /project/name/:user_idx/:proj_idx    | 프로젝트명 수정                           |
+| GET                | /project/list/:user_idx              | 사용자의 프로젝트 목록 불러오기           |
+| 모델 관리 기능     |                                      |                                           |
+| POST               | /model                               | 사용자의 ML(머신 러닝) 모델 정보 저장     |
+| GET                | /model/list/:user_idx                | 사용자의 ML 모델 목록 불러오기            |
+| PUT                | /model/name/:user_idx/:model_idx     | ML 모델명 수정                            |
+| DELETE             | /model/:user_idx/:model_idx          | ML 모델 데이터 삭제                       |
+| GET                | /model/download/:user_idx/:model_idx | ML 모델 데이터 다운로드                   |
+| 사용자 탈퇴 기능   |                                      |                                           |
+| DELETE             | /project/:user_idx/all               | 탈퇴한 사용자의 모든 프로젝트 데이터 삭제 |
+
+<br/>
+
+## :four: 트러블 슈팅 기록
+
+- https://github.com/AI-Play/User-Proj-Managing/discussions
+
+<br/>
+
+## :five: 개발 환경 준비 사항
+
+<details>
+  <summary><b>준비 사항</b></summary>
 
 - npm
 - docker(mongodb image, postgres image)
@@ -44,13 +89,10 @@ docker run -p 5432:5432 --name postgres -e POSTGRES_PASSWORD=aiplay -d postgres
 // -> User-Auth Repo README 참고하여 적용 필요
 ```
 
-## 개발 서버 실행
+##### 개발 서버 실행
 
 ```
 npm run dev
 ```
 
-## 배포 플랫폼 및 서버 주소
-
-- 플랫폼 : Vercel
-- 주소 : https://user-proj-managing.vercel.app/
+</details>
