@@ -1,24 +1,12 @@
 // ESM
 import fastifyPlugin from "fastify-plugin";
-import fastifyMongo from "fastify-mongodb";
-import fastifyPostgres from "fastify-postgres";
-import fastifyENV from "fastify-env";
-import fastifyCORS from "fastify-cors";
-import fastifyJWT from "fastify-jwt";
-import fastifyCookie from "fastify-cookie";
+import fastifyMongo from "@fastify/mongodb";
+import fastifyPostgres from "@fastify/postgres";
+import fastifyENV from "@fastify/env";
+import fastifyCORS from "@fastify/cors";
+import fastifyJWT from "@fastify/jwt";
+import fastifyCookie from "@fastify/cookie";
 import swagger from "fastify-swagger";
-
-const mongodbConnector = fastifyPlugin(async (fastify, options) => {
-  fastify.register(fastifyMongo, {
-    url: fastify.config.MONGO_URL,
-  });
-});
-
-const postgresConnector = fastifyPlugin(async (fastify, options) => {
-  fastify.register(fastifyPostgres, {
-    connectionString: fastify.config.POSTGRES_URL,
-  });
-});
 
 const envSetting = fastifyPlugin(async (fastify, options) => {
   fastify
@@ -41,6 +29,18 @@ const envSetting = fastifyPlugin(async (fastify, options) => {
     .ready((err) => {
       if (err) console.error(err);
     });
+});
+
+const mongodbConnector = fastifyPlugin(async (fastify, options) => {
+  fastify.register(fastifyMongo, {
+    url: fastify.config.MONGO_URL,
+  });
+});
+
+const postgresConnector = fastifyPlugin(async (fastify, options) => {
+  fastify.register(fastifyPostgres, {
+    connectionString: fastify.config.POSTGRES_URL,
+  });
 });
 
 const corsSetting = fastifyPlugin(async (fastify, options) => {
