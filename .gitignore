@@ -1,8 +1,12 @@
 /node_modules
 /.vscode
+/.devcontainer
 
 package-lock.json
 
-.env
+.env*
 
 testdata.json
+
+.DS_Store
+.vercel
