@@ -63,22 +63,22 @@ Server for managing machine learning projects of AI Play users.
 npm i
 
 # MongoDB Setting (localhost environment)
-# 1. Enter MONGO_URL="mongodb://test:aiplay@localhost:27017/test" in .env
+# 1. Enter MONGO_URL="mongodb://my-user:my-user-pwd@localhost:27017/my-db" in .env
 # 2. Run docker mongodb container
-docker run -d --name mongo -p 27017:27017 mongo --auth
+docker run -d --name my-mongo -p 27017:27017 mongo --auth
 # 3. Connect to the admin db
-docker exec -it mongo mongo admin
+docker exec -it my-mongo mongo admin
 # 4. Create admin account
-db.createUser({ user: "admin", pwd: "aiplay", roles: [{ role: "userAdminAnyDatabase", db: "admin" }] })
+db.createUser({ user: "admin", pwd: "admin-pwd", roles: [{ role: "userAdminAnyDatabase", db: "admin" }] })
 # 5. Connect with admin account
-docker exec -it mongo mongo -u admin -p aiplay
+docker exec -it my-mongo mongo -u admin -p admin-pwd
 # 6. Create a new user and grant db permission
-db.createUser({ user: "test", pwd: "aiplay", roles: [{ role: "readWrite", db: "test" }] })
+db.createUser({ user: "my-user", pwd: "my-user-pwd", roles: [{ role: "readWrite", db: "my-db" }] })
 
 # 7. Create a new db
 docker exec -it mongo mongo
-use test
-db.auth("test", "aiplay")
+use my-db
+db.auth("my-user", "my-user-pwd")
 db.ml_proj_structure.insert({ "user_idx": 1, "proj_idx": 1, "layout": [] })
 
 # PostgreSQL Setting (localhost environment)

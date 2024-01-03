@@ -63,22 +63,22 @@ AI Play 사용자의 머신 러닝 프로젝트 관리 기능을 위한 서버
 npm i
 
 // MongoDB Setting (localhost 환경)
-// 1. .env에 MONGO_URL="mongodb://test:aiplay@localhost:27017/test" 입력
+// 1. .env에 MONGO_URL="mongodb://my-user:my-user-pwd@localhost:27017/my-db" 입력
 // 2. docker mongodb container 실행
-docker run -d --name mongo -p 27017:27017 mongo --auth
+docker run -d --name my-mongo -p 27017:27017 mongo --auth
 // 3. admin db로 접속
-docker exec -it mongo mongo admin
+docker exec -it my-mongo mongo admin
 // 4. admin 계정 생성
-db.createUser( { user: "admin", pwd: "aiplay", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] } )
+db.createUser( { user: "admin", pwd: "admin-pwd", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ] } )
 // 5. admin 계정으로 접속
-docker exec -it mongo mongo -u admin -p aiplay
+docker exec -it my-mongo mongo -u admin -p admin-pwd
 // 6. 새로운 user 생성 및 db 권한 부여
-db.createUser( { user: "test", pwd: "aiplay", roles: [ { role: "readWrite", db: "test" } ] } )
+db.createUser( { user: "my-user", pwd: "my-user-pwd", roles: [ { role: "readWrite", db: "my-db" } ] } )
 
 // 7. 새로운 db 생성
-docker exec -it mongo mongo
-use test
-db.auth("test", "aiplay")
+docker exec -it my-mongo mongo
+use my-db
+db.auth("my-user", "my-user-pwd")
 db.ml_proj_structure.insert({  "user_idx": 1,  "proj_idx": 1,  "layout": []})
 
 // PostgreSQL Setting (localhost 환경)
